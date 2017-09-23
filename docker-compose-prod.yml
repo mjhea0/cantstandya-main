@@ -5,14 +5,15 @@ services:
   cantstandya-server:
     container_name: cantstandya-server
     build:
-      context: https://github.com/toplet/cantstandya-server.git#master
+      context: ../cantstandya-server
+      dockerfile: Dockerfile-prod
     ports:
       - '1337:3030' # expose ports - HOST:CONTAINER
     environment:
       - BASIC_DB_TEST=postgres://postgres:postgres@cantstandya-db:5432/cantstandya_test
       - BASIC_DB=postgres://postgres:postgres@cantstandya-db:5432/cantstandya_prod
       - TOKEN_SECRET=changeme
-      - NODE_ENV=${NODE_ENV}
+      - NODE_ENV=production
     depends_on:
       cantstandya-db:
         condition: service_healthy
@@ -22,7 +23,7 @@ services:
   cantstandya-db:
     container_name: cantstandya-db
     build:
-      context: https://github.com/toplet/cantstandya-server.git#master:src/db
+      context: ../cantstandya-server/src/db
     ports:
       - '5433:5432' # expose ports - HOST:CONTAINER
     environment:
@@ -34,12 +35,13 @@ services:
   cantstandya-client:
     container_name: cantstandya-client
     build:
-      context: https://github.com/calebpollman/cantstandya-client.git#master
+      context: ../cantstandya-client
+      dockerfile: Dockerfile-prod
     ports:
       - '3007:3000' # expose ports - HOST:CONTAINER
     environment:
       - SERVER_URL=${SERVER_URL}
-      - NODE_ENV=${NODE_ENV}
+      - NODE_ENV=production
     depends_on:
       cantstandya-server:
         condition: service_started

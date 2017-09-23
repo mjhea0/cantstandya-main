@@ -8,6 +8,9 @@ services:
       context: ../cantstandya-server
     ports:
       - '1337:3030' # expose ports - HOST:CONTAINER
+    volumes:
+      - '../cantstandya-server:/usr/src/app'
+      - '../cantstandya-server/package.json:/usr/src/package.json'
     environment:
       - BASIC_DB_TEST=postgres://postgres:postgres@cantstandya-db:5432/cantstandya_test
       - BASIC_DB=postgres://postgres:postgres@cantstandya-db:5432/cantstandya_dev
@@ -37,6 +40,9 @@ services:
       context: ../cantstandya-client
     ports:
       - '3007:3000' # expose ports - HOST:CONTAINER
+    volumes:
+      - '../cantstandya-client:/usr/src/app'
+      - '/usr/src/app/node_modules'
     environment:
       - SERVER_URL=${SERVER_URL}
       - NODE_ENV=${NODE_ENV}
@@ -44,19 +50,4 @@ services:
       cantstandya-server:
         condition: service_started
     links:
-      - cantstandya-server
-
-  nginx:
-    container_name: nginx
-    build: ./nginx/
-    restart: always
-    ports:
-      - 80:80
-    depends_on:
-      cantstandya-server:
-        condition: service_started
-      cantstandya-client:
-        condition: service_started
-    links:
-      - cantstandya-client
       - cantstandya-server
