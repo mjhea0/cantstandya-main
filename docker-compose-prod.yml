@@ -7,7 +7,7 @@ services:
     build:
       context: https://github.com/toplet/cantstandya-server.git#master
     ports:
-      - '1337:3000' # expose ports - HOST:CONTAINER
+      - '1337:3030' # expose ports - HOST:CONTAINER
     environment:
       - BASIC_DB_TEST=postgres://postgres:postgres@cantstandya-db:5432/cantstandya_test
       - BASIC_DB=postgres://postgres:postgres@cantstandya-db:5432/cantstandya_prod
