@@ -44,7 +44,7 @@ services:
       - '../cantstandya-client:/usr/src/app'
       - '/usr/src/app/node_modules'
     environment:
-      - SERVER_URL=${SERVER_URL}
+      - REACT_APP_SERVER_URL=${REACT_APP_SERVER_URL}
       - NODE_ENV=${NODE_ENV}
     depends_on:
       cantstandya-server:

@@ -40,7 +40,7 @@ services:
     ports:
       - '3007:3000' # expose ports - HOST:CONTAINER
     environment:
-      - SERVER_URL=${SERVER_URL}
+      - REACT_APP_SERVER_URL=${REACT_APP_SERVER_URL}
       - NODE_ENV=production
     depends_on:
       cantstandya-server:
