@@ -20,6 +20,7 @@ Add environment variables:
 
 ```sh
 $ export NODE_ENV=development
+$ export export REACT_APP_SERVER_URL=ADD_YOUR_SERVER_URL
 ```
 
 Build images and spin up containers:
